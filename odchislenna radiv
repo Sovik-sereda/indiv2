@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <math.h>
+
+#define EPSILON 0.0001 
+
+
+double f_single(double x) {
+    if (x < 1) {
+        return -3 * x * x + x - 1;
+    } else if (x >= 1 && x < 4) {
+        return x * sqrt(x - 1);
+    } else {
+        return fabs(2 - x);
+    }
+}
+
+double f_double(double x, double y) {
+    return pow(x, y) + pow(y, x - 1);
+}
+
+int main() {
+    
+    double a1 = -5.0, b1 = 5.0, h1 = 0.1;
+    double min1 = INFINITY, max1 = -INFINITY;
+
+    printf("Табуляція функції однієї змінної y = f(x):\n");
+    printf("x\ty\n");
+    for (double x = a1; x <= b1; x += h1) {
+        double y = f_single(x);
+        if (y < min1) min1 = y;
+        if (y > max1) max1 = y;
+        printf("%.2f\t%.6f\n", x, y);
+    }
+    printf("\nМинимум y = %.6f, Максимум y = %.6f\n\n", min1, max1);
+
+    
+    double a2 = 1.0, b2 = 4.0, c2 = 1.0, d2 = 5.0, hx = 0.2, hy = 0.25;
+    double min2 = INFINITY, max2 = -INFINITY;
+
+    
+    printf("Табуляція функції двох змінних z = f(x, y):\n");
+    printf("x\ty\tz\n");
+    for (double x = a2; x <= b2; x += hx) {
+        for (double y = c2; y <= d2; y += hy) {
+            double z = f_double(x, y);
+            if (z < min2) min2 = z;
+            if (z > max2) max2 = z;
+            printf("%.2f\t%.2f\t%.6f\n", x, y, z);
+        }
+    }
+    printf("\nМинимум z = %.6f, Максимум z = %.6f\n", min2, max2);
+
+    return 0;
+}
