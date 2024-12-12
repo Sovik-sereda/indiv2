@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <math.h>
+#define FUNC(x) cos(pow((x), 1.0/3))
+#define Q(x, n) -pow((x), 2.0/3.0)/2/(n+1)/(2*n+1)
+
+int main() {
+    double a, b;
+    int k, n;    
+    printf("Введите a, b, k (количество точек) и n (фиксированное количество членов):\n");
+    scanf("%lf %lf %d %d", &a, &b, &k, &n);
+    double h = (b - a) / (k - 1);
+    printf("\nРезультаты вычислений:\n");
+    printf("x\tS_fixed_n\tS_epsilon\n");
+    // Цикл по значениям x от a до b с шагом h
+    for (int i = 0; i < k; i++) {
+        double x = a + i * h;
+        double s_fixed_n = calculate_with_fixed_n(n, x);
+        double s_epsilon = calculate_with_epsilon(x);
+        printf("%.4f\t%.6f\t%.6f\n", x, s_fixed_n, s_epsilon);
+    }
+
+    return 0;
+}
