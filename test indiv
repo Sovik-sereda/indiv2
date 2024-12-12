@@ -1,0 +1,36 @@
+      i++;
+    } while (fabs(term) >= EPSILON);
+
+    return sum;
+}
+
+int main() {
+    double a, b;
+    int k, n;
+
+    // Ввод значений a, b, k, n
+    printf("Введите a, b, k (количество точек) и n (фиксированное количество членов):\n");
+    scanf("%lf %lf %d %d", &a, &b, &k, &n);
+
+    // Вычисление шага h
+    double h = (b - a) / (k - 1);
+
+    printf("\nРезультаты вычислений:\n");
+    printf("x\tS_fixed_n\tS_epsilon\n");
+
+    // Цикл по значениям x от a до b с шагом h
+    for (int i = 0; i < k; i++) {
+        double x = a + i * h;
+
+        // Вычисление суммы для фиксированного n
+        double s_fixed_n = calculate_with_fixed_n(n, x);
+
+        // Вычисление суммы с заданной точностью
+        double s_epsilon = calculate_with_epsilon(x);
+
+        // Вывод результатов
+        printf("%.4f\t%.6f\t%.6f\n", x, s_fixed_n, s_epsilon);
+    }
+
+    return 0;
+}
